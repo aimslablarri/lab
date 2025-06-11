@@ -1,0 +1,54 @@
+# .github/workflows/update-publications.yml
+
+name: Update Publications from Google Scholar
+
+on:
+  schedule:
+    # Run weekly on Sundays at 6 AM UTC
+    - cron: "0 6 * * 0"
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-publications.yml"
+
+jobs:
+  update-publications:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install beautifulsoup4 requests scholarly lxml selenium webdriver-manager
+
+      - name: Install Chrome and ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run publication scraper
+        run: python scripts/update_publications.py
+        env:
+          SCHOLAR_ID: ${{ secrets.SCHOLAR_ID }}
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add publication.html
+          git commit -m "Auto-update publications from Google Scholar [$(date +'%Y-%m-%d %H:%M:%S')]"
+          git push

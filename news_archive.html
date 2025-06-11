@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>News Archive - AIMSLab</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!-- Custom styles for the news archive page -->
+    <style>
+        /* Container for the filter controls */
+        .filter-container {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        /* Style for the filter dropdowns */
+        .filter-container select {
+            margin-right: 20px;
+            padding: 5px;
+        }
+        /* Style for individual news items */
+        .news-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        /* Style for the date display */
+        .news-date {
+            color: #666;
+            font-weight: bold;
+        }
+        /* Style for the back link */
+        .back-link {
+            margin: 20px 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with navigation -->
+    <div id="header">
+        <div class="row">
+            <div class="column" align="left">
+                <ul style="margin-top:80px; margin-left:-120px; font-size:25px">
+                    <li style="margin-top:30px;"><a style="color:brown;" href="aimslab.html#anchor-people">People</a></li>
+                    <li style="margin-top:10px;"><a style="color:brown;" href="aimslab.html#anchor-projects">Projects</a></li>
+                    <li style="margin-top:10px;"><a style="color:brown;" href="publication.html" target="_blank">Publications</a></li>
+                    <li style="margin-top:10px;"><a style="color:brown;" href="aimslab.html#anchor-collab">Collaborators</a></li>
+                    <li style="margin-top:10px;"><a style="color:brown;" href="aimslab.html#anchor-news">News</a></li>
+                </ul>
+            </div>
+            <div class="column" align="center">
+                <a href="aimslab.html"><img style="border: 0px solid; width: 650px; margin-top:-0px; margin-left:-200px;" alt="" src="images/aimslab_logo1.png" align="center" hspace="-20" vspace="0"></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="contents">
+        <h2 style="color:darkblue;"><b>News Archive</b></h2>
+        
+        <!-- Back to main page link -->
+        <a href="aimslab.html#anchor-news" class="back-link" style="color:brown;">← Back to Recent News</a>
+
+        <!-- Filter controls section -->
+        <div class="filter-container">
+            <!-- Keyword search input -->
+            <input type="text" id="keywordSearch" placeholder="Search keywords..." onkeyup="filterNews()" style="padding: 5px; margin-right: 20px; width: 200px;">
+            <!-- Year filter dropdown -->
+            <select id="yearFilter" onchange="filterNews()">
+                <option value="all">All Years</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+            <!-- Sort order dropdown -->
+            <select id="sortBy" onchange="sortNews()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+
+        <!-- 
+            NEWS ITEMS CONTAINER
+            ====================
+            To add a new news item or publication:
+            1. Copy the template below
+            2. Update the data-year attribute with the year
+            3. Update the news-date span with the date (MM/YYYY format)
+            4. Add your content in the paragraph tag
+            
+            Template:
+            <div class="news-item" data-year="YYYY">
+                <span class="news-date">MM/YYYY</span>
+                <p>Your news content here.</p>
+            </div>
+        -->
+        <div id="newsContainer">
+            <!-- Example news items -->
+            <div class="news-item" data-year="2024">
+                <span class="news-date">03/2024</span>
+                <p>New Research Grant Awarded for edge computing and IoT applications research.</p>
+            </div>
+
+            <div class="news-item" data-year="2024">
+                <span class="news-date">02/2024</span>
+                <p>Paper on "Adaptive Computation Partitioning in Edge Computing Systems" accepted at IEEE Conference.</p>
+            </div>
+
+            <div class="news-item" data-year="2024">
+                <span class="news-date">02/2024</span>
+                <p>New project launch focusing on sustainable edge computing solutions.</p>
+            </div>
+
+            <div class="news-item" data-year="2021">
+                <span class="news-date">09/2021</span>
+                <p>One collaborative paper on sustainable vehicular edge computing is accepted in IEEE Transaction on Vehicular Technology 2021.</p>
+            </div>
+
+            <div class="news-item" data-year="2021">
+                <span class="news-date">09/2021</span>
+                <p>AIMSLab got affiliated with the Louisville Automation and Robotics Research Institute (LARRI) at UofL.</p>
+            </div>
+
+            <div class="news-item" data-year="2021">
+                <span class="news-date">07/2021</span>
+                <p>One collaborative paper got accepted in IEEE CLUSTER 2021.</p>
+            </div>
+
+            <div class="news-item" data-year="2021">
+                <span class="news-date">07/2021</span>
+                <p>AIMSLab established in the CSE department at University of Louisville (UofL).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for filtering and sorting functionality -->
+    <script>
+        // Function to filter news items based on year and keyword search
+        function filterNews() {
+            const yearFilter = document.getElementById('yearFilter').value;
+            const keywordSearch = document.getElementById('keywordSearch').value.toLowerCase();
+            const newsItems = document.getElementsByClassName('news-item');
+
+            for (let item of newsItems) {
+                const year = item.getAttribute('data-year');
+                const content = item.textContent.toLowerCase();
+                
+                const yearMatch = yearFilter === 'all' || year === yearFilter;
+                const keywordMatch = keywordSearch === '' || content.includes(keywordSearch);
+                
+                item.style.display = yearMatch && keywordMatch ? 'block' : 'none';
+            }
+        }
+
+        // Function to sort news items by date
+        function sortNews() {
+            const sortBy = document.getElementById('sortBy').value;
+            const container = document.getElementById('newsContainer');
+            const items = Array.from(container.getElementsByClassName('news-item'));
+
+            items.sort((a, b) => {
+                const dateA = a.querySelector('.news-date').textContent;
+                const dateB = b.querySelector('.news-date').textContent;
+                
+                // Parse dates from MM/YYYY format
+                const [monthA, yearA] = dateA.split('/').map(Number);
+                const [monthB, yearB] = dateB.split('/').map(Number);
+                
+                // Create Date objects for comparison
+                const dateObjA = new Date(yearA, monthA - 1);
+                const dateObjB = new Date(yearB, monthB - 1);
+
+                if (sortBy === 'newest') {
+                    return dateObjB - dateObjA;  // Descending order (newest first)
+                } else if (sortBy === 'oldest') {
+                    return dateObjA - dateObjB;  // Ascending order (oldest first)
+                }
+            });
+
+            items.forEach(item => container.appendChild(item));
+        }
+    </script>
+
+    <!-- Footer section -->
+    <div id="footer">
+        <div class="clearfix">
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td align="right"><a href="http://www.ucsd.edu/"><img src="images/ucsd_eng_logo1111.jpg" width="200"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
