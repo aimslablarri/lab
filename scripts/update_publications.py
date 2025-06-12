@@ -197,16 +197,23 @@ def update_html_file(publications, html_file_path):
                 'Journals & Conference Proceedings',
                 'Journals & Conference Proceedings\n',
                 'Journals &amp; Conference Proceedings',
-                'Journals &amp; Conference Proceedings\n'
+                'Journals &amp; Conference Proceedings\n',
+                'Journals & Conference Proceedings<br>',
+                'Journals &amp; Conference Proceedings<br>'
             ]
             
+            print("Searching for heading in HTML file...")
             for h in possible_headings:
                 heading = soup.find('h2', string=lambda text: text and text.strip() == h.strip())
                 if heading:
+                    print(f"Found heading: {heading.text}")
                     break
             
             if not heading:
                 print("Could not find 'Journals & Conference Proceedings' heading")
+                print("Available h2 headings in file:")
+                for h2 in soup.find_all('h2'):
+                    print(f"- '{h2.text}'")
                 return False
                 
             # Find the ordered list after the heading
@@ -215,6 +222,8 @@ def update_html_file(publications, html_file_path):
                 print("Could not find publications list in HTML")
                 return False
                 
+            print(f"Found publications list with {len(pub_list.find_all('li'))} existing items")
+            
             # Clear existing publications
             pub_list.clear()
             
@@ -248,6 +257,8 @@ def update_html_file(publications, html_file_path):
                 
                 pub_list.append(li)
                 pub_list.append(soup.new_tag('br'))
+            
+            print(f"Added {len(publications)} new publications to the list")
                 
         else:  # aimslab.html
             # Find the unordered list in the publications section
@@ -297,6 +308,7 @@ def update_html_file(publications, html_file_path):
         with open(html_file_path, 'w', encoding='utf-8') as f:
             f.write(str(soup))
             
+        print(f"Successfully updated {html_file_path}")
         return True
         
     except Exception as e:
