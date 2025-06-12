@@ -191,8 +191,26 @@ def update_html_file(publications, html_file_path):
             soup = BeautifulSoup(f.read(), 'html.parser')
         
         if html_file_path == "publication.html":
-            # Find the ordered list under "Journals & Conference Proceedings"
-            pub_list = soup.find('h2', string='Journals & Conference Proceedings\n').find_next('ol')
+            # Find the heading - try different variations
+            heading = None
+            possible_headings = [
+                'Journals & Conference Proceedings',
+                'Journals & Conference Proceedings\n',
+                'Journals &amp; Conference Proceedings',
+                'Journals &amp; Conference Proceedings\n'
+            ]
+            
+            for h in possible_headings:
+                heading = soup.find('h2', string=lambda text: text and text.strip() == h.strip())
+                if heading:
+                    break
+            
+            if not heading:
+                print("Could not find 'Journals & Conference Proceedings' heading")
+                return False
+                
+            # Find the ordered list after the heading
+            pub_list = heading.find_next('ol')
             if not pub_list:
                 print("Could not find publications list in HTML")
                 return False
