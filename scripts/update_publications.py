@@ -190,38 +190,90 @@ def update_html_file(publications, html_file_path):
         with open(html_file_path, 'r', encoding='utf-8') as f:
             soup = BeautifulSoup(f.read(), 'html.parser')
         
-        # Find the publications list
-        pub_list = soup.find('ul', {'style': 'width: 100%; font-family: Times New Roman,Times,serif;'})
-        if not pub_list:
-            print("Could not find publications list in HTML")
-            return False
+        if html_file_path == "publication.html":
+            # Find the ordered list under "Journals & Conference Proceedings"
+            pub_list = soup.find('h2', string='Journals & Conference Proceedings\n').find_next('ol')
+            if not pub_list:
+                print("Could not find publications list in HTML")
+                return False
+                
+            # Clear existing publications
+            pub_list.clear()
             
-        # Clear existing publications
-        pub_list.clear()
-        
-        # Add new publications
-        for pub in publications:
-            li = soup.new_tag('li')
+            # Add new publications
+            for pub in publications:
+                li = soup.new_tag('li')
+                
+                # Add title with red color
+                title_span = soup.new_tag('span', attrs={'style': 'color: rgb(153, 0, 0);'})
+                title_span.string = pub['title']
+                li.append(title_span)
+                
+                # Add PDF link placeholder
+                pdf_link = soup.new_tag('a', href='#', target='_blank')
+                pdf_link.string = 'pdf'
+                li.append(' [')
+                li.append(pdf_link)
+                li.append(']')
+                li.append(soup.new_tag('br'))
+                
+                # Add authors
+                authors = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman;'})
+                authors.string = pub['authors']
+                li.append(authors)
+                li.append(soup.new_tag('br'))
+                
+                # Add venue and year
+                venue = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman,Times,serif;'})
+                venue.string = f"{pub['venue']}, {pub['year']}"
+                li.append(venue)
+                
+                pub_list.append(li)
+                pub_list.append(soup.new_tag('br'))
+                
+        else:  # aimslab.html
+            # Find the unordered list in the publications section
+            pub_list = soup.find('ul', {'style': 'width: 100%; font-family: Times New Roman,Times,serif;'})
+            if not pub_list:
+                print("Could not find publications list in HTML")
+                return False
+                
+            # Clear existing publications
+            pub_list.clear()
             
-            # Add title
-            title = soup.new_tag('b')
-            title.string = pub['title']
-            li.append(title)
-            li.append(soup.new_tag('br'))
-            
-            # Add authors
-            authors = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman;'})
-            authors.string = pub['authors']
-            li.append(authors)
-            li.append(soup.new_tag('br'))
-            
-            # Add venue and year
-            venue = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman,Times,serif;'})
-            venue.string = f"{pub['venue']}, {pub['year']}"
-            li.append(venue)
-            
-            pub_list.append(li)
-            pub_list.append(soup.new_tag('br'))
+            # Add new publications
+            for pub in publications:
+                li = soup.new_tag('li')
+                
+                # Add title
+                title = soup.new_tag('b')
+                title.string = pub['title']
+                li.append(title)
+                li.append(soup.new_tag('br'))
+                
+                # Add authors
+                authors = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman;'})
+                authors.string = pub['authors']
+                li.append(authors)
+                li.append(soup.new_tag('br'))
+                
+                # Add venue and year
+                venue = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman,Times,serif;'})
+                venue.string = f"{pub['venue']}, {pub['year']}"
+                li.append(venue)
+                
+                # Add PDF and GitHub links
+                li.append(soup.new_tag('br'))
+                pdf_link = soup.new_tag('a', href='#', attrs={'style': 'color:brown;'})
+                pdf_link.string = '[PDF]'
+                li.append(pdf_link)
+                li.append(' | ')
+                github_link = soup.new_tag('a', href='#', attrs={'style': 'color:brown;'})
+                github_link.string = '[View on GitHub]'
+                li.append(github_link)
+                
+                pub_list.append(li)
+                pub_list.append(soup.new_tag('br'))
         
         # Write the updated HTML
         with open(html_file_path, 'w', encoding='utf-8') as f:
@@ -239,7 +291,6 @@ def main():
     scholar_id = 'UY1UAKUAAAAJ'  # Default scholar ID
     scholar_url = f"https://scholar.google.com/citations?user={scholar_id}&hl=en"
     author_name = "Sabur Baidya"  # Fallback for scholarly library
-    html_file_path = "publication.html"
     
     print("Starting publication update process...")
     print(f"Target Scholar URL: {scholar_url}")
@@ -272,13 +323,14 @@ def main():
     for i, pub in enumerate(publications[:3], 1):
         print(f"{i}. {pub['title'][:60]}... ({pub['year']})")
     
-    # Update HTML file
-    success = update_html_file(publications, html_file_path)
+    # Update both HTML files
+    success1 = update_html_file(publications, "publication.html")
+    success2 = update_html_file(publications[:3], "aimslab.html")  # Only update with 3 most recent publications
     
-    if success:
-        print("Publications updated successfully!")
+    if success1 and success2:
+        print("Publications updated successfully in both files!")
     else:
-        print("Failed to update publications")
+        print("Failed to update one or both files")
         exit(1)
 
 if __name__ == '__main__':
