@@ -36,8 +36,6 @@ jobs:
 
       - name: Run publication scraper
         run: python scripts/update_publications.py
-        env:
-          SCHOLAR_ID: ${{ secrets.SCHOLAR_ID }}
 
       - name: Check for changes
         id: git-check

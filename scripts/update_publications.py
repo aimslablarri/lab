@@ -2,6 +2,14 @@ from scholarly import scholarly
 import re
 from bs4 import BeautifulSoup
 import time
+import os
+import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import json
 
 def get_publications():
     # Search for Sabur Baidya's profile
@@ -74,13 +82,204 @@ def update_html(publications):
     with open('aimslab.html', 'w', encoding='utf-8') as f:
         f.write(str(soup))
 
-def main():
+def setup_selenium_driver():
+    """Setup Selenium WebDriver with Chrome options for headless browsing"""
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--window-size=1920,1080')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+    
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+    return driver
+
+def scrape_scholar_with_selenium(scholar_url):
+    """Scrape Google Scholar publications using Selenium"""
+    driver = setup_selenium_driver()
+    publications = []
+    
     try:
-        publications = get_publications()
-        update_html(publications)
-        print("Successfully updated publications")
+        print(f"Accessing Google Scholar: {scholar_url}")
+        driver.get(scholar_url)
+        
+        # Wait for page to load
+        WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "gsc_a_tr"))
+        )
+        
+        # Extract publication data
+        pub_elements = driver.find_elements(By.CLASS_NAME, "gsc_a_tr")
+        
+        for pub_element in pub_elements:
+            try:
+                # Get title
+                title_element = pub_element.find_element(By.CLASS_NAME, "gsc_a_at")
+                title = title_element.text.strip()
+                
+                # Get the full text of the publication row
+                pub_text = pub_element.text.strip()
+                lines = pub_text.split('\n')
+                
+                # Parse authors and venue from the lines
+                authors = lines[1] if len(lines) > 1 else ""
+                venue = lines[2] if len(lines) > 2 else ""
+                
+                # Extract year
+                try:
+                    year_element = pub_element.find_element(By.CLASS_NAME, "gsc_a_y")
+                    year = year_element.text.strip() if year_element.text.strip() else "N/A"
+                except:
+                    year = "N/A"
+                
+                publications.append({
+                    'title': title,
+                    'authors': authors,
+                    'venue': venue,
+                    'year': year
+                })
+                
+            except Exception as e:
+                print(f"Error processing publication: {e}")
+                continue
+                
     except Exception as e:
-        print(f"Error updating publications: {str(e)}")
+        print(f"Error in Selenium scraping: {e}")
+    finally:
+        driver.quit()
+        
+    return publications
+
+def scrape_scholar_with_scholarly(author_name):
+    """Scrape Google Scholar publications using scholarly library"""
+    publications = []
+    try:
+        # Search for the author
+        search_query = scholarly.search_author(author_name)
+        author = next(search_query)
+        
+        # Get their publications
+        pubs = scholarly.search_pubs(author_name)
+        
+        for pub in pubs:
+            try:
+                publications.append({
+                    'title': pub.get('bib', {}).get('title', ''),
+                    'authors': pub.get('bib', {}).get('author', ''),
+                    'venue': pub.get('bib', {}).get('venue', ''),
+                    'year': pub.get('bib', {}).get('pub_year', 'N/A')
+                })
+            except Exception as e:
+                print(f"Error processing publication: {e}")
+                continue
+                
+    except Exception as e:
+        print(f"Error in scholarly scraping: {e}")
+        
+    return publications
+
+def update_html_file(publications, html_file_path):
+    """Update the HTML file with new publications"""
+    try:
+        # Read the existing HTML file
+        with open(html_file_path, 'r', encoding='utf-8') as f:
+            soup = BeautifulSoup(f.read(), 'html.parser')
+        
+        # Find the publications list
+        pub_list = soup.find('ul', {'style': 'width: 100%; font-family: Times New Roman,Times,serif;'})
+        if not pub_list:
+            print("Could not find publications list in HTML")
+            return False
+            
+        # Clear existing publications
+        pub_list.clear()
+        
+        # Add new publications
+        for pub in publications:
+            li = soup.new_tag('li')
+            
+            # Add title
+            title = soup.new_tag('b')
+            title.string = pub['title']
+            li.append(title)
+            li.append(soup.new_tag('br'))
+            
+            # Add authors
+            authors = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman;'})
+            authors.string = pub['authors']
+            li.append(authors)
+            li.append(soup.new_tag('br'))
+            
+            # Add venue and year
+            venue = soup.new_tag('span', attrs={'style': 'font-family: Times New Roman,Times,serif;'})
+            venue.string = f"{pub['venue']}, {pub['year']}"
+            li.append(venue)
+            
+            pub_list.append(li)
+            pub_list.append(soup.new_tag('br'))
+        
+        # Write the updated HTML
+        with open(html_file_path, 'w', encoding='utf-8') as f:
+            f.write(str(soup))
+            
+        return True
+        
+    except Exception as e:
+        print(f"Error updating HTML file: {e}")
+        return False
+
+def main():
+    """Main function to orchestrate the publication update"""
+    # Using a default scholar ID
+    scholar_id = 'UY1UAKUAAAAJ'  # Default scholar ID
+    scholar_url = f"https://scholar.google.com/citations?user={scholar_id}&hl=en"
+    author_name = "Sabur Baidya"  # Fallback for scholarly library
+    html_file_path = "publication.html"
+    
+    print("Starting publication update process...")
+    print(f"Target Scholar URL: {scholar_url}")
+    
+    # Try Selenium method first
+    publications = scrape_scholar_with_selenium(scholar_url)
+    
+    # If Selenium fails, try scholarly library
+    if not publications:
+        print("Selenium method failed. Trying scholarly library as fallback...")
+        publications = scrape_scholar_with_scholarly(author_name)
+    
+    if not publications:
+        print("No publications found with either method. Exiting.")
+        return
+    
+    # Sort publications by year (newest first), handling non-numeric years
+    def get_sort_year(pub):
+        try:
+            return int(pub['year']) if pub['year'] != 'N/A' else 0
+        except (ValueError, TypeError):
+            return 0
+    
+    publications.sort(key=get_sort_year, reverse=True)
+    
+    print(f"Found {len(publications)} publications")
+    
+    # Print first few publications for verification
+    print("\nFirst 3 publications found:")
+    for i, pub in enumerate(publications[:3], 1):
+        print(f"{i}. {pub['title'][:60]}... ({pub['year']})")
+    
+    # Update HTML file
+    success = update_html_file(publications, html_file_path)
+    
+    if success:
+        print("Publications updated successfully!")
+    else:
+        print("Failed to update publications")
+        exit(1)
 
 if __name__ == '__main__':
     main() 
