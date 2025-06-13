@@ -10,11 +10,13 @@ on:
   push:
     branches: [main]
     paths:
-      - ".github/workflows/update-publications.yml"
+      - ".github/workflows/updatepublication.yml"
 
 jobs:
   update-publications:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
