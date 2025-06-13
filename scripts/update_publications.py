@@ -113,6 +113,20 @@ def scrape_scholar_with_selenium(scholar_url):
             EC.presence_of_element_located((By.CLASS_NAME, "gsc_a_tr"))
         )
         
+        # Click "Show more" button until all publications are loaded
+        while True:
+            try:
+                show_more = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.ID, "gsc_bpf_more"))
+                )
+                if show_more.is_enabled():
+                    show_more.click()
+                    time.sleep(2)  # Wait for new publications to load
+                else:
+                    break
+            except:
+                break
+        
         # Extract publication data
         pub_elements = driver.find_elements(By.CLASS_NAME, "gsc_a_tr")
         
@@ -137,11 +151,19 @@ def scrape_scholar_with_selenium(scholar_url):
                 except:
                     year = "N/A"
                 
+                # Get URL if available
+                url = ""
+                try:
+                    url = title_element.get_attribute("href")
+                except:
+                    pass
+                
                 publications.append({
                     'title': title,
                     'authors': authors,
                     'venue': venue,
-                    'year': year
+                    'year': year,
+                    'url': url
                 })
                 
             except Exception as e:
@@ -203,11 +225,21 @@ def update_html_file(publications, html_file_path):
             ]
             
             print("Searching for heading in HTML file...")
+            # First try exact matches
             for h in possible_headings:
                 heading = soup.find('h2', string=lambda text: text and text.strip() == h.strip())
                 if heading:
                     print(f"Found heading: {heading.text}")
                     break
+            
+            # If no exact match, try partial matches
+            if not heading:
+                for h2 in soup.find_all('h2'):
+                    h2_text = h2.text.strip()
+                    if 'Journals' in h2_text and 'Conference' in h2_text:
+                        heading = h2
+                        print(f"Found heading with partial match: {h2_text}")
+                        break
             
             if not heading:
                 print("Could not find 'Journals & Conference Proceedings' heading")
@@ -236,10 +268,10 @@ def update_html_file(publications, html_file_path):
                 title_span.string = pub['title']
                 li.append(title_span)
                 
-                # Add PDF link placeholder
-                pdf_link = soup.new_tag('a', href='#', target='_blank')
-                pdf_link.string = 'pdf'
+                # Add PDF link
                 li.append(' [')
+                pdf_link = soup.new_tag('a', href=pub.get('url', '#'), target='_blank')
+                pdf_link.string = 'pdf'
                 li.append(pdf_link)
                 li.append(']')
                 li.append(soup.new_tag('br'))
@@ -293,7 +325,7 @@ def update_html_file(publications, html_file_path):
                 
                 # Add PDF and GitHub links
                 li.append(soup.new_tag('br'))
-                pdf_link = soup.new_tag('a', href='#', attrs={'style': 'color:brown;'})
+                pdf_link = soup.new_tag('a', href=pub.get('url', '#'), attrs={'style': 'color:brown;'})
                 pdf_link.string = '[PDF]'
                 li.append(pdf_link)
                 li.append(' | ')
