@@ -69,86 +69,309 @@
     #contents {
       padding-left: 40px;
     }
-  </style>
+
+    .team-table {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      border-collapse: separate;
+      border-spacing: 0 18px;
+    }
+    .team-table th {
+      text-align: left;
+      font-size: 1.2em;
+      color: #4B2E83;
+      padding-top: 30px;
+      padding-bottom: 10px;
+      padding-left: 2em;
+    }
+    .team-table th[colspan="2"] {
+      margin-left: -1.5em;
+      padding-left: 0;
+    }
+    .team-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+    .team-info {
+      vertical-align: top;
+      padding-left: 24px;
+      font-size: 1em;
+    }
+    .team-name {
+      font-weight: bold;
+      color: #222;
+      font-size: 1.1em;
+    }
+    .team-role {
+      font-style: italic;
+      color: #444;
+      font-size: 0.98em;
+    }
+    .team-topic {
+      color: #555;
+      font-size: 0.97em;
+    }
+    .section-heading {
+      color: darkblue;
+      margin-left: 1px;   /* Adjust this value for your desired indent */
+      margin-top: 2.5em;   /* Space above each heading */
+      margin-bottom: 0.7em; /* Space below each heading */
+      font-weight: bold;
+    }
+    .team-info p {
+      margin: 0 0 0.3em 0;
+      font-size: 1em;
+    }
+    .team-info a {
+      color: #4B2E83;
+      text-decoration: underline;
+      margin-right: 0.5em;
+    }
+</style>
 </head><body>
 <div id="header">
-<header class="main-header">
-<div class="nav-links left-links">
-<ul>
-<li><a href="#anchor-people">People</a></li>
-<li><a href="#anchor-projects">Projects</a></li>
-<li><a href="#anchor-publications">Publications</a></li>
-<li><a href="#anchor-projects-collaborators">Collaborators</a></li>
-<li><a href="#anchor-news">News</a></li>
-</ul>
+
+<div class="row">
+  <div class="column" align="left">
+    <ul style="margin-top:80px; margin-left:-120px; font-size:25px">
+      <li style="margin-top:30px;"><a style="color:brown;" href="https://sabur-baidya.com/aimslab_people.html" target="_blank">People</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://sabur-baidya.com/aimslab.html#anchor-projects">Research</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://sabur-baidya.com/publication.html" target="_blank">Publications</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://sabur-baidya.com/aimslab.html#anchor-collab">Collaborators</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://sabur-baidya.com/aimslab.html#anchor-sponsors">Sponsors</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://sabur-baidya.com/aimslab.html#anchor-news">News</a></li>
+    </ul>
+  </div>
+
+  <div class="column" align="center">
+    <a href="aimslab.html"><img style="border: 0px solid; width: 650px; margin-top:0px; margin-left:-200px;" alt="AIMSLab Logo" src="images/aimslab_logo1.png" align="center" hspace="-20" vspace="0"></a>
+  </div>
+
+  <div class="column" align="right">
+    <ul style="list-style-type:none; margin-top:-380px; margin-right:-760px; font-size:20px" align="right">
+      <li style="margin-top:30px;" align="right"><a style="color:brown;" href="http://louisville.edu/" target="_blank">University of Louisville</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://engineering.louisville.edu/" target="_blank">Speed School of Engineering</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://engineering.louisville.edu/academics/departments/computer/" target="_blank">UofL CSE Department</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="https://engineering.louisville.edu/research/centersinstitutes/larri/" target="_blank">LARRI</a></li>
+      <li style="margin-top:10px;"><a style="color:brown;" href="http://cwc.ucsd.edu/" target="_blank">UCSD CWC</a></li>
+    </ul>
+  </div>
 </div>
-<div class="logo-container">
-<a href="aimslab.html">
-<img alt="AIMSLab Logo" class="logo-image" src="images/aimslab_logo1.png"/>
-</a>
 </div>
-<div class="nav-links">
-<ul>
-<li><a href="http://louisville.edu/" target="_blank">University of Louisville</a></li>
-<li><a href="https://engineering.louisville.edu/" target="_blank">Speed School of Engineering</a></li>
-<li><a href="https://engineering.louisville.edu/academics/departments/computer/" target="_blank">UofL CSE Department</a></li>
-<li><a href="https://engineering.louisville.edu/research/centersinstitutes/larri/" target="_blank">LARRI</a></li>
-<li><a href="http://cwc.ucsd.edu/" target="_blank">UCSD CWC</a></li>
-</ul>
-</div>
-</header>
-</div>
+
 <div id="contents"><!--<h1 align="center">News</h1>-->
 <ul class="news">
 </ul>
-<div id="subsubheader" style="font-weight: bold; height: 66px;">
-<h2 style="color:darkblue;"><b>About</b><br/>
-<br/>
-<p>The Autonomous Intelligent Mobile Systems Lab (AIMSLab) conducts research in the broad areas of Intelligent and Autonomous Systems in the domain of Internet-of-Things (IoT) and Robotics, including the Unmanned Aerial Vehicles (UAV) and Connected and Autonomous Vehicles (CAV), tactile and industrial robotic systems. On the technical side, our research employs Multimodal sensor fusion,  Wireless Networks (5G/6G, LTE, C-V2X, M2M, mmWave),  Distributed Computing (Edge/Cloud), Reconfigurable Computing using Machine Learning and Optimization approaches. Our group also works on Video Streaming and Processing, AR/VR/Metaverse, Digital Twin, and Smart and Connected Health.</p>
+
+<div style="font-weight: bold; height: 66px;" id="subsubheader">
+<h2 style="color:darkblue;"><b>About</b><br>
+<br>
+<p>The Autonomous Intelligent Mobile Systems Laboratory (AIMSLab) was established in 2021 as one of the major labs at the Louisville Automation and Robotics Research Institute (LARRI) at the University of Louisville (UofL).  AIMSLab housed in the LARRI aims at conducting advanced studies and development of autonomous and Intelligent systems including unmanned aerial vehicles, ground rovers, connected and autonomous vehicles, industrial robotic arms, metaverse applications, and Wireless and Mobile innovations. This is done through novel integration of sensing and intelligent decision-making in the space of collaborative robotics using AI and adaptive sensing, as well as the exploration of multi-level edge and cloud computing capabilities. AIMSLab provides a very open, inclusive and collaborative environment and embraces researchers from different background, culture and demography. It provides a cutting-edge facility equipped with a lots of mobile robots, sensors, systems and tools and connects with several other labs located at LARRI for close collaboration with other engineering departments and also the school of medicine for healthcare related research.</p>
 </h2></div>
 <br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
-<h2 id="anchor-people" style="color:darkblue;"><b>Lab Members</b><br/>
-</h2>
-<style type="text/css">
-#wrap {
-   width:100%;
-   max-width:1200px;
-   margin:0 auto;
-   height:80px;
+<br/><br/><br/>
+<h2 id="anchor-people" class="section-heading"><b>People</b></h2>
+
+<style>
+.team-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  border-collapse: separate;
+  border-spacing: 0 18px;
 }
-#left_col {
-   float:left;
-   width:60%;
-}  
-#right_col {
-   float:right;
-   width:40%;
-}  
+.team-table th {
+  text-align: left;
+  font-size: 1.2em;
+  color: #4B2E83;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-left: 2em;
+}
+.team-table th[colspan="2"] {
+  margin-left: -1.5em;
+  padding-left: 0;
+}
+.team-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+.team-info {
+  vertical-align: top;
+  padding-left: 24px;
+  font-size: 1em;
+}
+.team-name {
+  font-weight: bold;
+  color: #222;
+  font-size: 1.1em;
+}
+.team-role {
+  font-style: italic;
+  color: #444;
+  font-size: 0.98em;
+}
+.team-topic {
+  color: #555;
+  font-size: 0.97em;
+}
 </style>
-<div id="wrap">
-<div id="left_col">
-<h3>Current Students: </h3>
-<ul style="width: 100%; font-family: Times New Roman,Times,serif;"><li><b>Predicting Human Depression with Hybrid Data Acquisition utilizing Physical Activity Sensing and Social Media Feeds</b><br/><span style="font-family: Times New Roman;">MH Uddin, S Baidya</span><br/><span style="font-family: Times New Roman,Times,serif;">arXiv preprint arXiv:2505.22779, 2025</span><br/><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=UY1UAKUAAAAJ&amp;cstart=20&amp;pagesize=80&amp;citation_for_view=UY1UAKUAAAAJ:r0BpntZqJG4C" style="color:brown;">[PDF]</a> | <a href="#" style="color:brown;">[View on GitHub]</a></li><br/><li><b>Large Language Models in the IoT Ecosystem--A Survey on Security Challenges and Applications</b><br/><span style="font-family: Times New Roman;">K Khatiwada, J Hopper, J Cheatham, A Joshi, S Baidya</span><br/><span style="font-family: Times New Roman,Times,serif;">arXiv preprint arXiv:2505.17586, 2025</span><br/><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=UY1UAKUAAAAJ&amp;cstart=20&amp;pagesize=80&amp;citation_for_view=UY1UAKUAAAAJ:4JMBOYKVnBMC" style="color:brown;">[PDF]</a> | <a href="#" style="color:brown;">[View on GitHub]</a></li><br/><li><b>A Hierarchical Optimization Framework Using Deep Reinforcement Learning for Task-Driven Bandwidth Allocation in 5G Teleoperation</b><br/><span style="font-family: Times New Roman;">N Golmohammadi, MM Rayguru, S Baidya</span><br/><span style="font-family: Times New Roman,Times,serif;">arXiv preprint arXiv:2505.15977, 2025</span><br/><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=UY1UAKUAAAAJ&amp;cstart=20&amp;pagesize=80&amp;citation_for_view=UY1UAKUAAAAJ:RHpTSmoSYBkC" style="color:brown;">[PDF]</a> | <a href="#" style="color:brown;">[View on GitHub]</a></li><br/></ul>
-</div>
-<div id="right_col" style="margin-right:0px; margin-top:-60px;">
-<br/><br/><br/><br/>
-<h3>Current External Student Collaborators:</h3>
-<ul style="width: 100%; font-family: Times New Roman,Times,serif;">
-<li>Yu-Jen Ku (PhD, ECE, UCSD)<br/></li>
-<br/>
-<li>Basar Kutukcu (PhD, ECE, UCSD)<br/></li>
-<br/>
-<li>Bryse Flowers (PhD, ECE, UCSD)<br/></li>
-<br/>
-</ul></div>
-</div>
+
+<table class="team-table">
+  <tr><th colspan="2">Faculty/PI (Lab Director)</th></tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Faculty Photo"></td>
+    <td class="team-info">
+      <div class="team-name">Dr. Sabur Baidya</div>
+      <p class="team-role">Assistant Professor, Computer Science & Engineering, University of Louisville</p>
+      <p class="team-contact">LinkedIn: <a href="https://www.linkedin.com/in/saburhb" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:sabur.baidya@louisville.edu">sabur.baidya@louisville.edu</a></p>
+      <p class="team-contact">Website: <a href="https://sabur-baidya.com" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Edge Computing, Robotics, Wireless Networks</p>
+    </td>
+  </tr>
+
+  <tr><th colspan="2">Graduate Students</th></tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Helal"></td>
+    <td class="team-info">
+      <div class="team-name">Mohammad Helal Uddin</div>
+      <p class="team-role">Ph.D. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:helal@example.com">helal@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Neural Network Compression for Resource-constrained Cyber-Physical Systems</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Narges"></td>
+    <td class="team-info">
+      <div class="team-name">Narges Golmohammadi</div>
+      <p class="team-role">Ph.D. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:narges@example.com">narges@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Intelligent and Optimized Next Generation Wireless Communication in Robotics</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Ashutosh"></td>
+    <td class="team-info">
+      <div class="team-name">Ashutosh Prakash</div>
+      <p class="team-role">Ph.D. Student, ECE, UofL (Co-advisor)</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:ashutosh@example.com">ashutosh@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Haptic Enabled Digital Twin based Teleroperation in Robotic Arm</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="William"></td>
+    <td class="team-info">
+      <div class="team-name">William Arnold</div>
+      <p class="team-role">M.S. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:william@example.com">william@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Side Channel and Systems Security in Industrial Robotics</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Raju"></td>
+    <td class="team-info">
+      <div class="team-name">Raju Garuda</div>
+      <p class="team-role">M.S. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:raju@example.com">raju@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Integrated Co-simulation of Robotics and Software-Defined Radios</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Luke"></td>
+    <td class="team-info">
+      <div class="team-name">Luke Rappa</div>
+      <p class="team-role">M.S. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:luke@example.com">luke@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Enhanced Anomaly Detection with Deep Learning for Smart Agriculture</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Basar"></td>
+    <td class="team-info">
+      <div class="team-name">Basar Kutukcu</div>
+      <p class="team-role">Ph.D. Student, CSE, University of California San Diego (External Advisor)</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:basar@example.com">basar@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Hardware Software Co-design and Optimization for Deep Learning on Embedded Systems</p>
+    </td>
+  </tr>
+
+  <tr><th colspan="2" style="padding-top: 30px;">Undergraduate Students</th></tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Liam"></td>
+    <td class="team-info">
+      <div class="team-name">Liam Seymour</div>
+      <p class="team-role">B.S. Student, Double Major (ECE and CSE), Western Kentucky University (REU Intern)</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:liam@example.com">liam@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Large Language Models on Resource-constrained Cyber-Physical Systems</p>
+    </td>
+  </tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Alwin"></td>
+    <td class="team-info">
+      <div class="team-name">Alwin Rajkumar</div>
+      <p class="team-role">B.S. Student, CSE, UofL</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:alwin@example.com">alwin@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Deep Multi-task Fusion for constrained robotic systems, e.g., UAVs</p>
+    </td>
+  </tr>
+
+  <tr><th colspan="2">K-12 Students</th></tr>
+  <tr>
+    <td><img class="team-photo" src="https://via.placeholder.com/110" alt="Saveer"></td>
+    <td class="team-info">
+      <div class="team-name">Saveer Jain</div>
+      <p class="team-role">K-12 Student, Dupont Manual High School</p>
+      <p class="team-contact">LinkedIn: <a href="#" target="_blank">LinkedIn</a></p>
+      <p class="team-contact">Email: <a href="mailto:saveer@example.com">saveer@example.com</a></p>
+      <p class="team-contact">Website: <a href="#" target="_blank">Website</a></p>
+      <p class="team-topic">Research Area: Robotic Security, Tactical Sensing</p>
+    </td>
+  </tr>
+
+  <tr><th colspan="2">Alumni</th></tr>
+  <tr><td colspan="2">
+    <ul style="font-family: Times New Roman,Times,serif; margin: 0; padding-left: 18px;">
+      <li>Ghanta Sai Krishna</li>
+      <li>Promit Panja</li>
+      <li>Elijah Spicer</li>
+      <li>Sead Kusmic</li>
+      <li>Sousanah Abdallah</li>
+      <li>Supriya Kundrapu</li>
+      <li>Smaran Alli</li>
+    </ul>
+  </td></tr>
+</table>
 <br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-<h2 id="anchor-research-areas" style="color:darkblue;"><b>Active Research Areas</b><br/>
+
+<h2 id="anchor-research-areas" class="section-heading"><b>Active Research Areas</b><br/>
 </h2>
 <style type="text/css">
 #wrap {
@@ -190,11 +413,9 @@
 </div>
 <br/>
 <br>
-<p>    Some past and present projects are listed here: <a href="research.html" target="_blank">Projects</a></p>
+<p>    Some past and present projects are listed here: <a href="research.html" target="_blank">Projects</a></p>
 <br/><br/>
-<br/><br/>
-<h2 id="anchor-projects" style="color:darkblue;"><b>Projects</b><br/>
-</h2>
+<h2 id="anchor-projects" class="section-heading">Projects</h2>
 <div id="wrap">
 <div id="left_col">
 <ul style="width: 100%; font-family: Times New Roman,Times,serif;">
@@ -259,8 +480,9 @@
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
-<h2 id="anchor-projects-collaborators" style="color:darkblue;"><b>External Collaborators</b><br/>
-</h2>
+<br/><br/><br/><br/>
+
+<h2 id="anchor-projects-collaborators" class="section-heading">External Collaborators</h2>
 <style type="text/css">
 #wrap {
    width:100%;
@@ -311,8 +533,7 @@
 <br/><br/>
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
-<h2 id="anchor-publications" style="color:darkblue;"><b>Publications</b><br/>
-</h2>
+<h2 id="anchor-publications" class="section-heading">Publications</h2>
 <!-- 
     HOW TO ADD NEW PUBLICATIONS
     ===========================
@@ -371,16 +592,17 @@
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
+<br/><br/><br/><br/>
+
 <!-- Recent News -->
-<h2 "margin-left:-80px;"="" id="anchor-news" style="color:darkblue;"><b>Recent News</b><br/>
-</h2>
+<h2 id="anchor-news" class="section-heading">Recent News</h2>
 <ul>
 </ul>
 <ul>
-<li>09/2021:  One collaborative paper on sustainable vehicular edge computing is accepted in <a href="https://ieeexplore.ieee.org/abstract/document/9573263" target="_blank">IEEE Transaction on Vehicular Technology</a> 2021</li>
-<li>09/2021:  AIMSLab got affiliated with the Louisville Automation and Robotics Research Institute (LARRI) at UofL.</li>
-<li>07/2021:  One collaborative paper got accepted in <a href="https://clustercomp.org/2021/" target="_blank">IEEE CLUSTER</a> 2021
-  <li>07/2021:  AIMSLab established in the CSE department at University of Louisville (UofL).</li>
+<li>09/2021:  One collaborative paper on sustainable vehicular edge computing is accepted in <a href="https://ieeexplore.ieee.org/abstract/document/9573263" target="_blank">IEEE Transaction on Vehicular Technology</a> 2021</li>
+<li>09/2021:  AIMSLab got affiliated with the Louisville Automation and Robotics Research Institute (LARRI) at UofL.</li>
+<li>07/2021:  One collaborative paper got accepted in <a href="https://clustercomp.org/2021/" target="_blank">IEEE CLUSTER</a> 2021
+  <li>07/2021:  AIMSLab established in the CSE department at University of Louisville (UofL).</li>
 </li>
 </ul>
 <br/>
