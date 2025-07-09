@@ -356,9 +356,10 @@
     </td>
   </tr>
 
+
   <tr><th colspan="2">Alumni</th></tr>
   <tr><td colspan="2">
-    <ul style="font-family: Times New Roman,Times,serif; margin: 0; padding-left: 18px;">
+    <ul class="alumni-list">
       <li>Ghanta Sai Krishna</li>
       <li>Promit Panja</li>
       <li>Elijah Spicer</li>
@@ -369,9 +370,8 @@
     </ul>
   </td></tr>
 </table>
-<br/><br/>
 
-<h2 id="anchor-research-areas" class="section-heading"><b>Active Research Areas</b><br/>
+<h2 id="anchor-research-areas" class="section-heading research-areas-section"><b>Active Research Areas</b><br/>
 </h2>
 <style type="text/css">
 #wrap {
@@ -416,71 +416,129 @@
 <p>    Some past and present projects are listed here: <a href="research.html" target="_blank">Projects</a></p>
 <br/><br/>
 <h2 id="anchor-projects" class="section-heading">Projects</h2>
-<div id="wrap">
-<div id="left_col">
-<ul style="width: 100%; font-family: Times New Roman,Times,serif;">
-<li>
-<b>Collaborative Perception over Vehicular Edge Computing</b><br/>
-                Developing efficient task partitioning algorithms and real-time multi-sensor fusion for improved collaborative vision in smart transportation systems. Features a prototype testbed with smart vehicles and edge computing nodes.
-                <br/>
-<a href="research.html#stip" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Design Space Exploration for ML Applications</b><br/>
-                Conducting design-space exploration for software-hardware co-design of application-driven adaptive computing systems, focusing on optimizing power, area, and speed while maintaining high accuracy and low latency.
-                <br/>
-<a href="research.html#aiss" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Resilient Computation for UAV Systems</b><br/>
-                Developing "Hydra", an architecture for flexible sensing-analysis-control pipelines over autonomous airborne systems, introducing the concept of information autonomy for edge-assisted UAV applications.
-                <br/>
-<a href="research.html#hydra" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Renewable Energy-driven Vehicular Edge Computing</b><br/>
-                Creating machine learning models to predict small cell operation time based on communication traffic, computing demand, and environmental factors, maximizing renewable energy utilization.
-                <br/>
-<a href="research.html#re" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Robust UAV Communications</b><br/>
-                Designing a robust multi-path communication framework for UAV systems, featuring a fully open-sourced integrated UAV-network simulator called "FlyNestSim".
-                <br/>
-<a href="research.html#uav" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Software-Defined Edge Computing</b><br/>
-                Developing a content and computation-aware communication control framework based on SDN paradigm, using extended Berkeley Packet Filter (eBPF) for efficient multi-streaming.
-                <br/>
-<a href="research.html#sdn" style="color:brown;">[View Project Details]</a>
-</li>
-<br/>
-<li>
-<b>Cognitive Interference Control</b><br/>
-                Creating a cognitive interference control framework for heterogeneous local access networks in urban IoT systems, optimizing transmission patterns for improved throughput and accuracy.
-                <br/>
-<a href="research.html#cognitive" style="color:brown;">[View Project Details]</a>
-</li>
-</ul>
-</div>
-</div>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
+
+<!-- 
+    HOW TO ADD NEW PROJECTS
+    =======================
+    1. Copy the template below for each new project
+    2. Update the following fields:
+       - Project Image: Add your project image to the /images/ folder and update the src path
+       - Alt Text: Provide descriptive alt text for accessibility
+       - Project Title: The name of your project
+       - Project Description: 2-3 sentences describing what the project does
+       - Project Links: Update the href to link to detailed project pages
+    3. Place new projects at the top of the list (most recent first)
+    4. Make sure to maintain consistent formatting
+    5. Project images should be 150px wide × 110px tall (automatically resized by CSS)
+
+    Template to copy:
+    <tr>
+        <td><img class="project-image" src="images/YOUR_IMAGE.png" alt="Your Project Description"></td>
+        <td class="project-info">
+            <div class="project-title">Your Project Title</div>
+            <p class="project-description">Your project description goes here. Keep it concise but informative.</p>
+            <p class="project-links"><a href="research.html#your-anchor">[View Project Details]</a></p>
+        </td>
+    </tr>
+
+    Available project images in /images/ folder:
+    - STIP_Testbed_diagram.png (testbed/infrastructure)
+    - architecture_netselect_color.png (architecture diagrams)
+    - uav_edge_setup.png (UAV/drone projects)
+    - iot_figure1.png (IoT/sensor projects)
+    - UAV_comm.png (communication/networking)
+    - netselect_project.png (network/SDN projects)
+    - cog_interf_control.png (cognitive/AI projects)
+    - dual_band_project.png (wireless projects)
+    - clone-n-cast_project.png (multimedia projects)
+    - mptcp_project1.png (protocol projects)
+    - multihoming_project.png (networking projects)
+    - cognitive_lte_project.png (LTE/cellular projects)
+    - Or add your own image to the /images/ folder
+-->
+
+<table class="project-table">
+  <tr><th colspan="2">Current Research Projects</th></tr>
+  
+  <!-- PROJECT 1: Collaborative Perception -->
+  <tr>
+    <td><img class="project-image" src="images/STIP_Testbed_diagram.png" alt="Collaborative Perception Project"></td>
+    <td class="project-info">
+      <div class="project-title">Collaborative Perception over Vehicular Edge Computing</div>
+      <p class="project-description">Developing efficient task partitioning algorithms and real-time multi-sensor fusion for improved collaborative vision in smart transportation systems. Features a prototype testbed with smart vehicles and edge computing nodes.</p>
+      <p class="project-links"><a href="research.html#stip">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 2: Design Space Exploration -->
+  <tr>
+    <td><img class="project-image" src="images/architecture_netselect_color.png" alt="Design Space Exploration Project"></td>
+    <td class="project-info">
+      <div class="project-title">Design Space Exploration for ML Applications</div>
+      <p class="project-description">Conducting design-space exploration for software-hardware co-design of application-driven adaptive computing systems, focusing on optimizing power, area, and speed while maintaining high accuracy and low latency.</p>
+      <p class="project-links"><a href="research.html#aiss">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 3: UAV Systems -->
+  <tr>
+    <td><img class="project-image" src="images/uav_edge_setup.png" alt="UAV Systems Project"></td>
+    <td class="project-info">
+      <div class="project-title">Resilient Computation for UAV Systems</div>
+      <p class="project-description">Developing "Hydra", an architecture for flexible sensing-analysis-control pipelines over autonomous airborne systems, introducing the concept of information autonomy for edge-assisted UAV applications.</p>
+      <p class="project-links"><a href="research.html#hydra">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 4: Renewable Energy -->
+  <tr>
+    <td><img class="project-image" src="images/iot_figure1.png" alt="Renewable Energy Project"></td>
+    <td class="project-info">
+      <div class="project-title">Renewable Energy-driven Vehicular Edge Computing</div>
+      <p class="project-description">Creating machine learning models to predict small cell operation time based on communication traffic, computing demand, and environmental factors, maximizing renewable energy utilization.</p>
+      <p class="project-links"><a href="research.html#re">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 5: UAV Communications -->
+  <tr>
+    <td><img class="project-image" src="images/UAV_comm.png" alt="UAV Communications Project"></td>
+    <td class="project-info">
+      <div class="project-title">Robust UAV Communications</div>
+      <p class="project-description">Designing a robust multi-path communication framework for UAV systems, featuring a fully open-sourced integrated UAV-network simulator called "FlyNestSim".</p>
+      <p class="project-links"><a href="research.html#uav">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 6: Software-Defined Edge Computing -->
+  <tr>
+    <td><img class="project-image" src="images/netselect_project.png" alt="Software-Defined Edge Computing Project"></td>
+    <td class="project-info">
+      <div class="project-title">Software-Defined Edge Computing</div>
+      <p class="project-description">Developing a content and computation-aware communication control framework based on SDN paradigm, using extended Berkeley Packet Filter (eBPF) for efficient multi-streaming.</p>
+      <p class="project-links"><a href="research.html#sdn">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- PROJECT 7: Cognitive Interference Control -->
+  <tr>
+    <td><img class="project-image" src="images/cog_interf_control.png" alt="Cognitive Interference Control Project"></td>
+    <td class="project-info">
+      <div class="project-title">Cognitive Interference Control</div>
+      <p class="project-description">Creating a cognitive interference control framework for heterogeneous local access networks in urban IoT systems, optimizing transmission patterns for improved throughput and accuracy.</p>
+      <p class="project-links"><a href="research.html#cognitive">[View Project Details]</a></p>
+    </td>
+  </tr>
+  
+  <!-- 
+      ADD NEW PROJECTS ABOVE THIS LINE
+      ================================
+      To add a new project, copy the template from the comments above,
+      paste it here, and update with your project information.
+  -->
+  
+</table>
+
 
 <h2 id="anchor-projects-collaborators" class="section-heading">External Collaborators</h2>
 <style type="text/css">

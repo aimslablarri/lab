@@ -1,4 +1,16 @@
 /* Website template by freewebsitetemplates.com */
+
+/* Spacing Control Variables 
+   Adjust these values to control spacing:
+   - alumni-bottom-spacing: Controls space below the alumni list
+   - research-areas-top-spacing: Controls space above "Active Research Areas"
+   Examples: 10px (small), 20px (medium), 40px (large)
+*/
+:root {
+    --alumni-bottom-spacing: 20px;
+    --research-areas-top-spacing: 30px;
+}
+
 @font-face {
     font-family: 'OpenSans';
     src: url('../fonts/OpenSans-Regular.eot');
@@ -664,4 +676,103 @@ td a:hover {
   margin-bottom: 0.5em;
   font-size: 1.15em;
   font-weight: bold;
+}
+
+/* Alumni Section Spacing Control */
+.alumni-list {
+    font-family: Times New Roman,Times,serif; 
+    margin: 0; 
+    padding-left: 18px;
+    margin-bottom: var(--alumni-bottom-spacing);
+}
+
+.alumni-table {
+    margin-bottom: var(--alumni-bottom-spacing);
+}
+
+/* Research Areas Section Spacing Control */
+.research-areas-section {
+    margin-top: var(--research-areas-top-spacing);
+}
+
+/* Project Section Styles 
+   ======================
+   These styles control the appearance of the Projects section.
+   Modify these values to customize the look and feel.
+*/
+
+/* Main project table container */
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;                          /* Space above/below table */
+    font-family: Times New Roman, Times, serif;
+}
+
+/* Table header styling */
+.project-table th {
+    background-color: #f5f5f5;               /* Header background color */
+    color: #333;                             /* Header text color */
+    font-weight: bold;
+    padding: 12px;                           /* Header padding */
+    text-align: left;
+    border-bottom: 2px solid #ddd;           /* Header bottom border */
+    font-size: 1.1em;                       /* Header font size */
+}
+
+/* Table cell styling */
+.project-table td {
+    padding: 15px;                           /* Cell padding - adjust for spacing */
+    vertical-align: top;                     /* Align content to top of cell */
+    border-bottom: 1px solid #eee;          /* Row separator line */
+}
+
+/* Project image styling */
+.project-image {
+    width: 150px;                            /* Image width - adjust as needed */
+    height: 110px;                           /* Image height - adjust as needed */
+    object-fit: cover;                       /* How image fits in container */
+    border: 2px solid #ccc;                  /* Image border color */
+    border-radius: 8px;                      /* Rounded corners - adjust for more/less rounding */
+}
+
+/* Project information container */
+.project-info {
+    vertical-align: top;
+    padding-left: 24px;                      /* Space between image and text */
+    font-size: 1em;
+}
+
+/* Project title styling */
+.project-title {
+    font-weight: bold;
+    color: #222;                             /* Title text color */
+    font-size: 1.1em;                       /* Title font size */
+    margin-bottom: 8px;                      /* Space below title */
+}
+
+/* Project description styling */
+.project-description {
+    color: #444;                             /* Description text color */
+    font-size: 0.98em;                      /* Description font size */
+    line-height: 1.4;                       /* Line spacing for readability */
+    margin-bottom: 10px;                     /* Space below description */
+}
+
+/* Project links styling */
+.project-links {
+    color: #555;                             /* Default link color */
+    font-size: 0.95em;                      /* Link font size */
+}
+
+/* Project link anchor styling */
+.project-links a {
+    color: brown;                            /* Link color - change to match site theme */
+    text-decoration: none;                   /* Remove underline by default */
+}
+
+/* Project link hover effect */
+.project-links a:hover {
+    color: #000;                             /* Link color on hover */
+    text-decoration: underline;              /* Add underline on hover */
 }
